@@ -1,0 +1,41 @@
+import express from 'express';
+import homeController from '../controller/homeController';
+import userController from '../controller/userController';
+
+let router = express.Router();
+
+let initWebRoutes = (app) => {
+    //Get Home Page
+    router.get('/', homeController.getHomePage);
+
+    //Get About Page
+    router.get('/about', homeController.getAboutPage);
+
+    //========== CREATE ===========
+    // Show CRUD form to get data form input
+    router.get('/crud-form', homeController.getCRUD);
+    // POST crud to the server to create a new data
+    router.post('/post-crud', homeController.postCRUD);
+
+    //========== READ ===========
+    // Display the data in the DB as a table in the webview to update or delete
+    router.get('/get-crud', homeController.displayGetCRUD);
+
+    //========== UPDATE ===========
+    // Show edit form to edit data after clicking the "Edit" button
+    router.get('/editCRUD', homeController.getEditCRUD);
+    // PUT crud to server to update data
+    router.post('/put-crud', homeController.putCRUD);
+
+    //========== DELTETE ===========
+    // Delete data
+    router.get('/delete-crud', homeController.deleteCRUD);
+
+    //========== Login API ===========
+    router.post('/api/login', userController.handleLogin);
+    router.get('/api/get-all-users', userController.handleGetAllUsers);
+
+    return app.use('/', router);
+};
+
+module.exports = initWebRoutes;

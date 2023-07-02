@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>display CRUD</title>
+  </head>
+<html>
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid black;
+        }
+    </style>
+    <body>
+        <h2>All user in the table will be display here</h2>
+
+        <table style="width: 100%">
+            <tr>
+                <th>Email</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Address</th>
+                <th>Action</th>
+            </tr>
+            <% for(var i=0; i<usersData.length; i++) {%>
+                <tr>
+                  <td><%= usersData[i].email%></td>
+                  <td><%= usersData[i].firstName%></td>
+                  <td><%= usersData[i].lastName%></td>
+                  <td><%= usersData[i].address%></td>
+                  <td>
+                    <a href="/editCRUD?id=<%= usersData[i].id%>" class="editBtn" type="button">Edit</a>
+                    <a href="/delete-crud?id=<%= usersData[i].id%>" class="deleteBtn" type="button">Delete</a>
+                  </td>
+                </tr>
+             <% } %>
+        </table>
+    </body>
+
+    <script>
+        btnEdit = document.querySelector("editBtn");
+        btnEdit
+    </script>
+</html>
