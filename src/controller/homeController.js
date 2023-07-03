@@ -26,7 +26,7 @@ let getAboutPage = async (req, res) => {
     }
 };
 
-//========== CREATE ===========
+//==========  READ===========
 // Show CRUD form to get data form input
 let getCRUD = (req, res) => {
     try {
@@ -36,7 +36,7 @@ let getCRUD = (req, res) => {
     }
 };
 
-//========== READ ===========
+//========== CREATE ===========
 // Display the data in the DB as a table in the webview to update or delete
 let displayGetCRUD = async (req, res) => {
     let data = await CRUDService.getAllUser();

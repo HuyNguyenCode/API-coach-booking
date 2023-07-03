@@ -40,7 +40,27 @@ const handleGetAllUsers = async (req, res) => {
     }
 };
 
+const handleCreateUser = async (req, res) => {
+    let message = await userService.createNewUser(req.body);
+    return res.status(200).json(message);
+};
+
+const handleDeleteUser = async (req, res) => {
+    let userID = req.body.id;
+    let message = await userService.deleteUser(userID);
+    return res.status(200).json(message);
+};
+
+const handleEditUser = async (req, res) => {
+    let data = req.body;
+    let message = await userService.updateUser(data);
+    return res.status(200).json(message);
+};
+
 module.exports = {
     handleLogin: handleLogin,
     handleGetAllUsers: handleGetAllUsers,
+    handleCreateUser: handleCreateUser,
+    handleDeleteUser: handleDeleteUser,
+    handleEditUser: handleEditUser,
 };
