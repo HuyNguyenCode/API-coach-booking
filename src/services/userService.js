@@ -168,6 +168,7 @@ let updateUser = (data) => {
                 await user.save();
                 resolve({
                     errCode: 0,
+                    inforChange: user.firstName,
                     message: 'Update user successful',
                 });
             } else {

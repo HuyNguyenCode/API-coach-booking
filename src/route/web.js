@@ -33,10 +33,12 @@ let initWebRoutes = (app) => {
 
     //========== Login API ===========
     router.post('/api/login', userController.handleLogin);
+
+    //========== User API ===========
     router.get('/api/get-all-users', userController.handleGetAllUsers); //Render user
     router.post('/api/create-user', userController.handleCreateUser) //Create user
-    router.get('/api/delete-user', userController.handleDeleteUser) //Delete user
-    router.post('/api/edit-user', userController.handleEditUser) //Delete user
+    router.put('/api/edit-user', userController.handleEditUser) //Update user
+    router.delete('/api/delete-user', userController.handleDeleteUser) //Delete user
 
     return app.use('/', router);
 };
