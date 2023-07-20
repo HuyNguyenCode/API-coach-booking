@@ -64,10 +64,23 @@ const handleEditUser = async (req, res) => {
     return res.status(200).json(message);
 };
 
+const handleGetAllCode = async (req, res) => {
+    try {
+        let data = await userService.getAllCode(req.query.type);
+        return res.status(200).json(data);
+    } catch (error) {
+        return res.status(200).json({
+            errCode: -1,
+            message: 'Error form server',
+        });
+    }
+};
+
 module.exports = {
     handleLogin: handleLogin,
     handleGetAllUsers: handleGetAllUsers,
     handleCreateUser: handleCreateUser,
     handleDeleteUser: handleDeleteUser,
     handleEditUser: handleEditUser,
+    handleGetAllCode: handleGetAllCode,
 };
