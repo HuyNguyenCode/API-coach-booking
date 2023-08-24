@@ -1,4 +1,3 @@
-import { promiseImpl } from 'ejs';
 import db from '../models/index';
 import CRUDService from '../services/CRUDService';
 

@@ -103,19 +103,21 @@ const createNewUser = (data) => {
             if (emailCheck) {
                 resolve({
                     errCode: 1,
-                    message: "Your email isn't exist, please try another eamil",
+                    message: 'Your email already exists, please try another eamil',
                 });
             } else {
                 let hashPasswordFromBcrypt = await hashUserPassword(data.password);
                 await db.User.create({
-                    password: hashPasswordFromBcrypt,
                     email: data.email,
+                    password: hashPasswordFromBcrypt,
                     firstName: data.firstName,
                     lastName: data.lastName,
                     address: data.address,
-                    gender: data.gender === '1' ? true : false,
-                    roleid: data.roleid,
+                    gender: data.gender,
+                    roleid: data.role,
                     phoneNumber: data.phoneNumber,
+                    positionID: data.position,
+                    image: data.avatar,
                 });
                 resolve({
                     errCode: 0,
@@ -165,6 +167,8 @@ let updateUser = (data) => {
                 user.firstName = data.firstName;
                 user.lastName = data.lastName;
                 user.address = data.address;
+                user.positionID = data.positionID;
+                user.gender = data.gender;
                 await user.save();
                 resolve({
                     errCode: 0,

@@ -1,7 +1,7 @@
 import express from 'express';
 import homeController from '../controller/homeController';
 import userController from '../controller/userController';
-
+import coachController from '../controller/coachController';
 let router = express.Router();
 
 let initWebRoutes = (app) => {
@@ -40,6 +40,9 @@ let initWebRoutes = (app) => {
     router.post('/api/create-user', userController.handleCreateUser); //Create user
     router.put('/api/edit-user', userController.handleEditUser); //Update user
     router.delete('/api/delete-user', userController.handleDeleteUser); //Delete user
+
+    //========== Coach API ===========
+    router.get('/api/get-all-coach', coachController.handleGetAllCoach); //Get all coach
 
     return app.use('/', router);
 };
