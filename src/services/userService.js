@@ -164,11 +164,13 @@ let updateUser = (data) => {
                 raw: false,
             });
             if (user) {
+                console.log(data);
                 user.firstName = data.firstName;
                 user.lastName = data.lastName;
                 user.address = data.address;
                 user.positionID = data.positionID;
                 user.gender = data.gender;
+                user.image = data.image;
                 await user.save();
                 resolve({
                     errCode: 0,

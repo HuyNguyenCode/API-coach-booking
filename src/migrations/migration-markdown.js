@@ -27,11 +27,11 @@ module.exports = {
                 type: Sequelize.TEXT('long'),
             },
             coachId: {
-                allowNull: false,
+                allowNull: true,
                 type: Sequelize.INTEGER,
             },
             specialityId: {
-                allowNull: false,
+                allowNull: true,
                 type: Sequelize.INTEGER,
             },
             classroomId: {

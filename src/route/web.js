@@ -43,7 +43,10 @@ let initWebRoutes = (app) => {
 
     //========== Coach API ===========
     router.get('/api/get-all-coach', coachController.handleGetAllCoach); //Get all coach
-
+    router.post('/api/save-coach-infor', coachController.handleSaveCoachInfor); // Save coach infor
+    router.get('/api/get-coach-des', coachController.handleGetCoachDes); // Get coach des
+    router.put('/api/edit-coach-des', coachController.handleEditCoachDes); // Edit coach infor
+    router.get('/api/get-coach-infor-by-id', coachController.handleGetCoachInforById); // Get coach des
     return app.use('/', router);
 };
 

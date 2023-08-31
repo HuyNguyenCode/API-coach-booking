@@ -1,5 +1,5 @@
 import db from '../models/index';
-
+import { Buffer } from 'buffer';
 const getAllCoach = (limitInput) => {
     return new Promise(async (resolve, reject) => {
         try {
@@ -15,6 +15,7 @@ const getAllCoach = (limitInput) => {
                 //     { model: db.Allcode, as: 'positionData', attributes: ['valueEn', 'valueVi'] },
                 //     { model: db.Allcode, as: 'genderData', attributes: ['valueEn', 'valueVi'] },
                 // ],
+                include: { model: db.Markdown, attributes: ['description'] },
                 raw: true,
                 nest: true,
             });
@@ -27,6 +28,116 @@ const getAllCoach = (limitInput) => {
     });
 };
 
+const saveCoachInfor = (inputData) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let res = {};
+            if (!inputData.coachId || !inputData.contentHTML || !inputData.contentMarkdown) {
+                res.errCode = 0;
+                res.errMessage = 'Missing paramteter';
+                resolve(res);
+            } else {
+                await db.Markdown.create({
+                    contentHTML: inputData.contentHTML,
+                    contentMarkdown: inputData.contentMarkdown,
+                    description: inputData.description,
+                    coachId: inputData.coachId,
+                });
+                res.errCode = 0;
+                res.errMessage = 'Save coach informartion successful';
+                resolve(res);
+            }
+        } catch (error) {
+            reject(error);
+        }
+    });
+};
+
+const getCoachDes = (coachIdInput) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let data = '';
+            let res = {};
+            if (coachIdInput) {
+                data = await db.Markdown.findOne({
+                    where: { coachId: coachIdInput },
+                });
+                res.errCode = 0;
+                res.errMessage = 'Get coach infor successful';
+                res.data = data;
+            }
+            resolve(res);
+        } catch (error) {
+            reject(error);
+        }
+    });
+};
+
+const getCoachInforById = (coachId) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let res = {};
+            if (!coachId) {
+                res.errCode = 1;
+                res.errMessage = 'Missing required parameter';
+                resolve(res);
+            } else {
+                let coachInfor = await db.User.findOne({
+                    where: { id: coachId },
+                    raw: true,
+                });
+                if (coachInfor) {
+                    if (coachInfor.image) {
+                        coachInfor.image = Buffer.from(coachInfor.image, 'base64').toString('binary');
+                    }
+                    res.errCode = 0;
+                    res.errMessage = 'User found';
+                    res.data = coachInfor;
+                } else {
+                    res.errCode = 2;
+                    res.errMessage = 'User not found';
+                    res.data = {};
+                }
+                resolve(res);
+            }
+        } catch (error) {
+            reject(error);
+        }
+    });
+};
+
+const editCoachDes = (data) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let markdown = await db.Markdown.findOne({
+                where: { coachId: data.coachId },
+                raw: false,
+            });
+            if (markdown) {
+                console.log(data);
+                markdown.description = data.description;
+                markdown.contentMarkdown = data.contentMarkdown;
+                markdown.contentHTML = data.contentHTML;
+                await markdown.save();
+                resolve({
+                    errCode: 0,
+                    message: 'Update markdown successful',
+                });
+            } else {
+                resolve({
+                    errCode: 2,
+                    message: 'Markdonw not found',
+                });
+            }
+        } catch (e) {
+            reject(e);
+        }
+    });
+};
 module.exports = {
     getAllCoach: getAllCoach,
+    saveCoachInfor: saveCoachInfor,
+    getCoachDes: getCoachDes,
+    editCoachDes: editCoachDes,
+    getCoachInforById: getCoachInforById,
 };

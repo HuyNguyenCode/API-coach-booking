@@ -61,7 +61,7 @@ let getUserInforByID = (userID) => {
             } else {
                 resolve([]);
             }
-            resolve(users);
+            resolve(user);
         } catch (error) {
             reject(error);
         }
