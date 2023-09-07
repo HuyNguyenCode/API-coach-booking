@@ -47,6 +47,7 @@ let initWebRoutes = (app) => {
     router.get('/api/get-coach-des', coachController.handleGetCoachDes); // Get coach des
     router.put('/api/edit-coach-des', coachController.handleEditCoachDes); // Edit coach infor
     router.get('/api/get-coach-infor-by-id', coachController.handleGetCoachInforById); // Get coach des
+    router.post('/api/bulk-create-schedule', coachController.handleBulkCreateSchedule); // Get coach des
     return app.use('/', router);
 };
 

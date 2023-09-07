@@ -1,5 +1,10 @@
 import db from '../models/index';
 import { Buffer } from 'buffer';
+import _ from 'lodash';
+require('dotenv').config();
+
+const MAX_NUMBER_SCHEDULE = process.env.MAX_NUMBER_SCHEDULE;
+
 const getAllCoach = (limitInput) => {
     return new Promise(async (resolve, reject) => {
         try {
@@ -134,10 +139,58 @@ const editCoachDes = (data) => {
         }
     });
 };
+
+const bulkCreateSchedule = (data) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            // console.log(data);
+            if (!data.arrSchedule || !data.coachId || !data.date) {
+                resolve({
+                    errCode: 1,
+                    message: 'Missing required param!',
+                });
+            } else {
+                if (data.arrSchedule && data.arrSchedule.length > 0) {
+                    data.arrSchedule = data.arrSchedule.map((item) => {
+                        item.maxNumber = MAX_NUMBER_SCHEDULE;
+                        return item;
+                    });
+                }
+                let exitsting = await db.Schedule.findAll({
+                    where: { coachId: data.coachId, date: data.date },
+                    attributes: ['timeType', 'date', 'coachId', 'maxNumber'],
+                    raw: true,
+                });
+                if (exitsting && exitsting.length > 0) {
+                    exitsting = exitsting.map((item) => {
+                        item.date = new Date(item.date).getTime();
+                        return item;
+                    });
+                }
+
+                const toCreate = _.differenceWith(data.arrSchedule, exitsting, (a, b) => {
+                    return a.timeType === b.timeType && a.date === b.date;
+                });
+
+                if (toCreate && toCreate.length > 0) {
+                    await db.Schedule.bulkCreate(data.arrSchedule);
+                    // console.log(data.arrSchedule);
+                    resolve({
+                        errCode: 0,
+                        message: 'Bulk create successful',
+                    });
+                }
+            }
+        } catch (e) {
+            reject(e);
+        }
+    });
+};
 module.exports = {
     getAllCoach: getAllCoach,
     saveCoachInfor: saveCoachInfor,
     getCoachDes: getCoachDes,
     editCoachDes: editCoachDes,
     getCoachInforById: getCoachInforById,
+    bulkCreateSchedule: bulkCreateSchedule,
 };
