@@ -68,6 +68,20 @@ const handleBulkCreateSchedule = async (req, res) => {
     }
 };
 
+const handleGetScheduleByDate = async (req, res) => {
+    try {
+        let inputCoachId = req.query.coachId;
+        let inputDate = req.query.date;
+        let response = await coachService.getScheduleByDate(inputCoachId, inputDate);
+        return res.status(200).json(response);
+    } catch (error) {
+        return res.status(200).json({
+            errCode: -1,
+            errMessage: 'Error from the server',
+        });
+    }
+};
+
 module.exports = {
     handleGetAllCoach: handleGetAllCoach,
     handleSaveCoachInfor: handleSaveCoachInfor,
@@ -75,4 +89,5 @@ module.exports = {
     handleEditCoachDes: handleEditCoachDes,
     handleGetCoachInforById: handleGetCoachInforById,
     handleBulkCreateSchedule: handleBulkCreateSchedule,
+    handleGetScheduleByDate: handleGetScheduleByDate,
 };

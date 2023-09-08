@@ -161,15 +161,9 @@ const bulkCreateSchedule = (data) => {
                     attributes: ['timeType', 'date', 'coachId', 'maxNumber'],
                     raw: true,
                 });
-                if (exitsting && exitsting.length > 0) {
-                    exitsting = exitsting.map((item) => {
-                        item.date = new Date(item.date).getTime();
-                        return item;
-                    });
-                }
 
                 const toCreate = _.differenceWith(data.arrSchedule, exitsting, (a, b) => {
-                    return a.timeType === b.timeType && a.date === b.date;
+                    return a.timeType === b.timeType && +a.date === +b.date;
                 });
 
                 if (toCreate && toCreate.length > 0) {
@@ -186,6 +180,41 @@ const bulkCreateSchedule = (data) => {
         }
     });
 };
+
+const getScheduleByDate = (coachId, date) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            // console.log(data);
+            if (!coachId || !date) {
+                resolve({
+                    errCode: 1,
+                    message: 'Missing required param!',
+                });
+            } else {
+                let dataSchedule = await db.Schedule.findAll({
+                    where: {
+                        coachId: coachId,
+                        date: date,
+                    },
+                    include: [{ model: db.Allcode, as: 'timePeriod', attributes: ['valueEn'] }],
+                    raw: false,
+                    nest: true,
+                });
+                if (!dataSchedule) {
+                    dataSchedule = [];
+                }
+                resolve({
+                    errCode: 0,
+                    message: 'Get schedule by date successful',
+                    data: dataSchedule,
+                });
+            }
+        } catch (e) {
+            reject(e);
+        }
+    });
+};
+
 module.exports = {
     getAllCoach: getAllCoach,
     saveCoachInfor: saveCoachInfor,
@@ -193,4 +222,5 @@ module.exports = {
     editCoachDes: editCoachDes,
     getCoachInforById: getCoachInforById,
     bulkCreateSchedule: bulkCreateSchedule,
+    getScheduleByDate: getScheduleByDate,
 };
