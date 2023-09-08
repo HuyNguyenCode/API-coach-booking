@@ -1,2 +1,80 @@
 create migrate: npx sequelize-cli db:migrate
 create seeder: npx sequelize-cli db:seed:all 
+
+--coach--
+INSERT INTO USERS (USERS.email, USERS.password, USERS.firstName, USERS.lastName, USERS.address, USERS.gender, USERS.roleID, USERS.phoneNumber, USERS.positionID) values ('kaynguyen@gmail.com','123456','Kay', 'Nguyen', 'US', 'Male', 'Coach','0726192745', 'Master'); 										
+INSERT INTO USERS (USERS.email, USERS.password, USERS.firstName, USERS.lastName, USERS.address, USERS.gender, USERS.roleID, USERS.phoneNumber, USERS.positionID) values ('kennguyen@gmail.com','123456','Ken', 'Nguyen', 'UK', 'Male', 'Coach','0128617291', 'Doctor'); 										
+INSERT INTO USERS (USERS.email, USERS.password, USERS.firstName, USERS.lastName, USERS.address, USERS.gender, USERS.roleID, USERS.phoneNumber, USERS.positionID) values ('kunnguyen@gmail.com','123456','Kun', 'Nguyen', 'US', 'Male', 'Coach','0274128462', 'Professor'); 				
+INSERT INTO USERS (USERS.email, USERS.password, USERS.firstName, USERS.lastName, USERS.address, USERS.gender, USERS.roleID, USERS.phoneNumber, USERS.positionID) values ('kaytran@gmail.com','123456','Kay', 'Tran', 'Australia', 'Male', 'Coach','0716281954', 'Doctor'); 										
+INSERT INTO USERS (USERS.email, USERS.password, USERS.firstName, USERS.lastName, USERS.address, USERS.gender, USERS.roleID, USERS.phoneNumber, USERS.positionID) values ('kentran@gmail.com','123456','Ken', 'Tran', 'Korea', 'Male', 'Coach','0621872583', 'Doctor'); 										
+INSERT INTO USERS (USERS.email, USERS.password, USERS.firstName, USERS.lastName, USERS.address, USERS.gender, USERS.roleID, USERS.phoneNumber, USERS.positionID) values ('kuntran@gmail.com','123456','Kun', 'Tran', 'British', 'Male', 'Coach','0264718275', 'Associate Professor'); 			
+INSERT INTO USERS (USERS.email, USERS.password, USERS.firstName, USERS.lastName, USERS.address, USERS.gender, USERS.roleID, USERS.phoneNumber, USERS.positionID) values ('johnsonnguyen@gmail.com','123456','Johnson', 'Nguyen', 'US', 'Male', 'Coach','0625187925', 'Professor'); 			
+
+--student---
+INSERT INTO USERS (USERS.email, USERS.password, USERS.firstName, USERS.lastName, USERS.address, USERS.gender, USERS.roleID, USERS.phoneNumber, USERS.positionID) values ('kaytrinh@gmail.com','123456','Kay', 'Trinh', 'VN', 'Male', 'Student','0728361926', 'None'); 										
+INSERT INTO USERS (USERS.email, USERS.password, USERS.firstName, USERS.lastName, USERS.address, USERS.gender, USERS.roleID, USERS.phoneNumber, USERS.positionID) values ('kenkong@gmail.com','123456','Ken', 'Kong', 'EU', 'Male', 'Student','0328661326', 'None'); 										
+INSERT INTO USERS (USERS.email, USERS.password, USERS.firstName, USERS.lastName, USERS.address, USERS.gender, USERS.roleID, USERS.phoneNumber, USERS.positionID) values ('kunkim@gmail.com','123456','Kun', 'Kim', 'Japan', 'Male', 'Student','0251976519', 'None'); 			
+
+
+--markdown--
+INSERT INTO MARKDOWNS (MARKDOWNS.contentHTML, MARKDOWNS.contentMarkdown, MARKDOWNS.description, MARKDOWNS.coachId) values ('<p>Mr.Kay has more than 10 years of startup experience with many great successes with his startup company. After 10 years of starting a business, he has moved into the field of training and has also achieved many achievements.</p>','Mr.Kay has more than 10 years of startup experience with many great successes with his startup company. After 10 years of starting a business, he has moved into the field of training and has also achieved many achievements.','Mr.Kay has more than 10 years of startup experience with many great successes with his startup company. After 10 years of starting a business, he has moved into the field of training and has also achieved many achievements.', '72');						
+INSERT INTO MARKDOWNS (MARKDOWNS.contentHTML, MARKDOWNS.contentMarkdown, MARKDOWNS.description, MARKDOWNS.coachId) values ('<p>Mr.ken is a typical businessman voted by Forbes magazine. He has made many achievements in integrating technology into education and training, he has also won many major awards in the world.</p>','Mr.ken is a typical businessman voted by Forbes magazine. He has made many achievements in integrating technology into education and training, he has also won many major awards in the world.','Mr.ken is a typical businessman voted by Forbes magazine. He has made many achievements in integrating technology into education and training, he has also won many major awards in the world.', '73');							
+INSERT INTO MARKDOWNS (MARKDOWNS.contentHTML, MARKDOWNS.contentMarkdown, MARKDOWNS.description, MARKDOWNS.coachId) values ('<p>Mr.Kun is the president of the global entrepreneur association with many typical achievements in the fintech industry, he has implemented many projects on a global scale with his partner, Mr. Ken.</p>','Mr.Kun is the president of the global entrepreneur association with many typical achievements in the fintech industry, he has implemented many projects on a global scale with his partner, Mr. Ken.','Mr.Kun is the president of the global entrepreneur association with many typical achievements in the fintech industry, he has implemented many projects on a global scale with his partner, Mr. Ken.', '74');							
+INSERT INTO MARKDOWNS (MARKDOWNS.contentHTML, MARKDOWNS.contentMarkdown, MARKDOWNS.description, MARKDOWNS.coachId) values ('<p>Mr.Kay is one of the 3 founders of the world's leading telecommunications group, he has many years of experience in the field of fintech, he has successfully trained more than 100 entrepreneurs in this industry.</p>','Mr.Kay is one of the 3 founders of the world's leading telecommunications group, he has many years of experience in the field of fintech, he has successfully trained more than 100 entrepreneurs in this industry.','Mr.Kay is one of the 3 founders of the world's leading telecommunications group, he has many years of experience in the field of fintech, he has successfully trained more than 100 entrepreneurs in this industry.', '75');					
+INSERT INTO MARKDOWNS (MARKDOWNS.contentHTML, MARKDOWNS.contentMarkdown, MARKDOWNS.description, MARKDOWNS.coachId) values ('<p>Mr.Ken is the Chairman of the Board of Directors of Business Apprenticeship and Development (B&D), he has a long experience in the field of business training and coaching during his 15 years of operation at the company.</p>','Mr.Ken is the Chairman of the Board of Directors of Business Apprenticeship and Development (B&D), he has a long experience in the field of business training and coaching during his 15 years of operation at the company.','Mr.Ken is the Chairman of the Board of Directors of Business Apprenticeship and Development (B&D), he has a long experience in the field of business training and coaching during his 15 years of operation at the company.', '76');						
+INSERT INTO MARKDOWNS (MARKDOWNS.contentHTML, MARKDOWNS.contentMarkdown, MARKDOWNS.description, MARKDOWNS.coachId) values ('<p>Mr.Kun has 15 years of experience in the field of education and digitalization support for more than 1000 businesses of global scale</p>','Mr.Kun has 15 years of experience in the field of education and digitalization support for more than 1000 businesses of global scale','Mr.Kun has 15 years of experience in the field of education and digitalization support for more than 1000 businesses of global scale.', '77');
+INSERT INTO MARKDOWNS (MARKDOWNS.contentHTML, MARKDOWNS.contentMarkdown, MARKDOWNS.description, MARKDOWNS.coachId) values ('<p>Mr.Johnson has experience working at multinational corporations such as Google, Amazon,... with 16 years of experience in business and start-up.</p>','Mr.Johnson has experience working at multinational corporations such as Google, Amazon,... with 16 years of experience in business and start-up.','Mr.Johnson has experience working at multinational corporations such as Google, Amazon,... with 16 years of experience in business and start-up.', '78');				
+
+
+--allcode--
+INSERT INTO ALLCODES (ALLCODES.type,ALLCODES.keyMap, ALLCODES.valueEn, ALLCODES.valueVi) values ('ROLE','R1','Admin', 'Quản trị viên' ); 									
+INSERT INTO ALLCODES (ALLCODES.type,ALLCODES.keyMap, ALLCODES.valueEn, ALLCODES.valueVi) values ('ROLE','R2','Coach', 'Giảng viên' ); 									
+INSERT INTO ALLCODES (ALLCODES.type,ALLCODES.keyMap, ALLCODES.valueEn, ALLCODES.valueVi) values ('ROLE','R3','Student', 'Học viên' ); 									
+									
+INSERT INTO ALLCODES (ALLCODES.type,ALLCODES.keyMap, ALLCODES.valueEn, ALLCODES.valueVi) values ('STATUS','S1','New', 'Lịch hẹn mới' ); 									
+INSERT INTO ALLCODES (ALLCODES.type,ALLCODES.keyMap, ALLCODES.valueEn, ALLCODES.valueVi) values ('STATUS','S2','Confirmed', 'Đã xác nhận' ); 									
+INSERT INTO ALLCODES (ALLCODES.type,ALLCODES.keyMap, ALLCODES.valueEn, ALLCODES.valueVi) values ('STATUS','S3','Done', 'Đã học xong' ); 									
+INSERT INTO ALLCODES (ALLCODES.type,ALLCODES.keyMap, ALLCODES.valueEn, ALLCODES.valueVi) values ('STATUS','S4','Cancel', 'Đã hủy' ); 									
+									
+INSERT INTO ALLCODES (ALLCODES.type,ALLCODES.keyMap, ALLCODES.valueEn, ALLCODES.valueVi) values ('TIME','T1','8:00 AM - 9:00 AM', '8:00 - 9:00' ); 									
+INSERT INTO ALLCODES (ALLCODES.type,ALLCODES.keyMap, ALLCODES.valueEn, ALLCODES.valueVi) values ('TIME','T2','9:00 AM - 10:00 AM', '9:00 - 10:00' ); 									
+INSERT INTO ALLCODES (ALLCODES.type,ALLCODES.keyMap, ALLCODES.valueEn, ALLCODES.valueVi) values ('TIME','T3','10:00 AM - 11:00 AM', '10:00 - 11:00' ); 									
+INSERT INTO ALLCODES (ALLCODES.type,ALLCODES.keyMap, ALLCODES.valueEn, ALLCODES.valueVi) values ('TIME','T4','11:00 AM - 0:00 PM', '11:00 - 12:00' ); 									
+									
+INSERT INTO ALLCODES (ALLCODES.type,ALLCODES.keyMap, ALLCODES.valueEn, ALLCODES.valueVi) values ('TIME','T5','1:00 PM - 2:00 PM', '13:00 - 14:00' ); 									
+INSERT INTO ALLCODES (ALLCODES.type,ALLCODES.keyMap, ALLCODES.valueEn, ALLCODES.valueVi) values ('TIME','T6','2:00 PM - 3:00 PM', '14:00 - 15:00' ); 									
+INSERT INTO ALLCODES (ALLCODES.type,ALLCODES.keyMap, ALLCODES.valueEn, ALLCODES.valueVi) values ('TIME','T7','3:00 PM - 4:00 PM', '15:00 - 16:00' ); 									
+INSERT INTO ALLCODES (ALLCODES.type,ALLCODES.keyMap, ALLCODES.valueEn, ALLCODES.valueVi) values ('TIME','T8','4:00 PM - 5:00 PM', '16:00 - 17:00' ); 									
+									
+INSERT INTO ALLCODES (ALLCODES.type,ALLCODES.keyMap, ALLCODES.valueEn, ALLCODES.valueVi) values ('POSITION','P0','None', 'Giảng viên' ); 									
+INSERT INTO ALLCODES (ALLCODES.type,ALLCODES.keyMap, ALLCODES.valueEn, ALLCODES.valueVi) values ('POSITION','P1','Master', 'Thạc sĩ' ); 									
+INSERT INTO ALLCODES (ALLCODES.type,ALLCODES.keyMap, ALLCODES.valueEn, ALLCODES.valueVi) values ('POSITION','P2','Doctor', 'Tiến sĩ' ); 									
+INSERT INTO ALLCODES (ALLCODES.type,ALLCODES.keyMap, ALLCODES.valueEn, ALLCODES.valueVi) values ('POSITION','P3','Associate Professor', 'Phó giáo sư' ); 									
+INSERT INTO ALLCODES (ALLCODES.type,ALLCODES.keyMap, ALLCODES.valueEn, ALLCODES.valueVi) values ('POSITION','P4','Professor', 'Giáo sư' ); 									
+									
+INSERT INTO ALLCODES (ALLCODES.type,ALLCODES.keyMap, ALLCODES.valueEn, ALLCODES.valueVi) values ('GENDER','M','Male', 'Nam' ); 									
+INSERT INTO ALLCODES (ALLCODES.type,ALLCODES.keyMap, ALLCODES.valueEn, ALLCODES.valueVi) values ('GENDER','F','Female', 'Nữ' ); 									
+INSERT INTO ALLCODES (ALLCODES.type,ALLCODES.keyMap, ALLCODES.valueEn, ALLCODES.valueVi) values ('GENDER','O','Other', 'Khác' ); 									
+									
+INSERT INTO ALLCODES (ALLCODES.type,ALLCODES.keyMap, ALLCODES.valueEn, ALLCODES.valueVi) values ('PRICE','PRI1','10', '200000' ); 									
+INSERT INTO ALLCODES (ALLCODES.type,ALLCODES.keyMap, ALLCODES.valueEn, ALLCODES.valueVi) values ('PRICE','PRI2','15', '250000' ); 									
+INSERT INTO ALLCODES (ALLCODES.type,ALLCODES.keyMap, ALLCODES.valueEn, ALLCODES.valueVi) values ('PRICE','PRI3','20', '300000' ); 									
+INSERT INTO ALLCODES (ALLCODES.type,ALLCODES.keyMap, ALLCODES.valueEn, ALLCODES.valueVi) values ('PRICE','PRI4','25', '350000' ); 									
+INSERT INTO ALLCODES (ALLCODES.type,ALLCODES.keyMap, ALLCODES.valueEn, ALLCODES.valueVi) values ('PRICE','PRI5','30', '400000' ); 									
+INSERT INTO ALLCODES (ALLCODES.type,ALLCODES.keyMap, ALLCODES.valueEn, ALLCODES.valueVi) values ('PRICE','PRI6','35', '450000' ); 									
+INSERT INTO ALLCODES (ALLCODES.type,ALLCODES.keyMap, ALLCODES.valueEn, ALLCODES.valueVi) values ('PRICE','PRI7','40', '500000' ); 									
+									
+INSERT INTO ALLCODES (ALLCODES.type,ALLCODES.keyMap, ALLCODES.valueEn, ALLCODES.valueVi) values ('PAYMENT','PAY1','Cash', 'Tiền mặt' ); 									
+INSERT INTO ALLCODES (ALLCODES.type,ALLCODES.keyMap, ALLCODES.valueEn, ALLCODES.valueVi) values ('PAYMENT','PAY2','Credit card', 'Thẻ ATM' ); 									
+INSERT INTO ALLCODES (ALLCODES.type,ALLCODES.keyMap, ALLCODES.valueEn, ALLCODES.valueVi) values ('PAYMENT','PAY3','All payment method', 'Tất cả' ); 									
+									
+INSERT INTO ALLCODES (ALLCODES.type,ALLCODES.keyMap, ALLCODES.valueEn, ALLCODES.valueVi) values ('Nation','N1','USA', 'Hoa Kỳ' ); 									
+INSERT INTO ALLCODES (ALLCODES.type,ALLCODES.keyMap, ALLCODES.valueEn, ALLCODES.valueVi) values ('Nation','N2','UK', 'Vương Auốc Anh' ); 									
+INSERT INTO ALLCODES (ALLCODES.type,ALLCODES.keyMap, ALLCODES.valueEn, ALLCODES.valueVi) values ('Nation','N3','Korea', 'Hàn Quốc' ); 									
+INSERT INTO ALLCODES (ALLCODES.type,ALLCODES.keyMap, ALLCODES.valueEn, ALLCODES.valueVi) values ('Nation','N4','Japan', 'Nhật Bản' ); 									
+INSERT INTO ALLCODES (ALLCODES.type,ALLCODES.keyMap, ALLCODES.valueEn, ALLCODES.valueVi) values ('Nation','N5','Vietnam', 'Việt Nam' ); 									
+INSERT INTO ALLCODES (ALLCODES.type,ALLCODES.keyMap, ALLCODES.valueEn, ALLCODES.valueVi) values ('Nation','N6','Sweden', 'Thụy Điển' ); 									
+INSERT INTO ALLCODES (ALLCODES.type,ALLCODES.keyMap, ALLCODES.valueEn, ALLCODES.valueVi) values ('Nation','N7','Australia', 'Úc' ); 									
+INSERT INTO ALLCODES (ALLCODES.type,ALLCODES.keyMap, ALLCODES.valueEn, ALLCODES.valueVi) values ('Nation','N8','Germany', 'CHLB Đức' ); 									
+INSERT INTO ALLCODES (ALLCODES.type,ALLCODES.keyMap, ALLCODES.valueEn, ALLCODES.valueVi) values ('Nation','N9','Italia', 'Ý' ); 									
+INSERT INTO ALLCODES (ALLCODES.type,ALLCODES.keyMap, ALLCODES.valueEn, ALLCODES.valueVi) values ('Nation','N10','France', 'Pháp' ); 									
