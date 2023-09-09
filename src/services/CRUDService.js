@@ -86,7 +86,7 @@ let updateUserData = (data) => {
                 resolve();
             }
         } catch (e) {
-            console.log(e);
+            reject(e);
         }
     });
 };

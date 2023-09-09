@@ -1,4 +1,3 @@
-import { query } from 'express';
 import coachService from '../services/coachService';
 
 const handleGetAllCoach = async (req, res) => {
@@ -18,6 +17,7 @@ const handleGetAllCoach = async (req, res) => {
 const handleSaveCoachInfor = async (req, res) => {
     try {
         let inputData = req.body;
+        console.log(inputData);
         let response = await coachService.saveCoachInfor(inputData);
         return res.status(200).json(response);
     } catch (error) {
@@ -45,6 +45,18 @@ const handleGetCoachInforById = async (req, res) => {
     let coachId = req.query.coachId;
     let response = await coachService.getCoachInforById(coachId);
     return res.status(200).json(response);
+};
+
+const handleGetCoachInforBooking = async (req, res) => {
+    try {
+        const response = await coachService.getCoachInforBooking(req.query.coachId);
+        return res.status(200).json(response);
+    } catch (error) {
+        return res.status.json({
+            errCode: 1,
+            errMessage: 'Error from server',
+        });
+    }
 };
 
 const handleEditCoachDes = async (req, res) => {
@@ -90,4 +102,5 @@ module.exports = {
     handleGetCoachInforById: handleGetCoachInforById,
     handleBulkCreateSchedule: handleBulkCreateSchedule,
     handleGetScheduleByDate: handleGetScheduleByDate,
+    handleGetCoachInforBooking: handleGetCoachInforBooking,
 };

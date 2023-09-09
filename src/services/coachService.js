@@ -1,6 +1,7 @@
 import db from '../models/index';
 import { Buffer } from 'buffer';
-import _ from 'lodash';
+import _, { reject } from 'lodash';
+import { resolve } from 'path';
 require('dotenv').config();
 
 const MAX_NUMBER_SCHEDULE = process.env.MAX_NUMBER_SCHEDULE;
@@ -37,20 +38,70 @@ const saveCoachInfor = (inputData) => {
     return new Promise(async (resolve, reject) => {
         try {
             let res = {};
-            if (!inputData.coachId || !inputData.contentHTML || !inputData.contentMarkdown) {
-                res.errCode = 0;
+            if (
+                !inputData.coachId ||
+                !inputData.contentHTML ||
+                !inputData.contentMarkdown ||
+                !inputData.coachId ||
+                !inputData.priceId ||
+                !inputData.nationId ||
+                !inputData.paymentId ||
+                !inputData.nameClass
+            ) {
+                res.errCode = 1;
                 res.errMessage = 'Missing paramteter';
                 resolve(res);
             } else {
-                await db.Markdown.create({
-                    contentHTML: inputData.contentHTML,
-                    contentMarkdown: inputData.contentMarkdown,
-                    description: inputData.description,
-                    coachId: inputData.coachId,
-                });
                 res.errCode = 0;
-                res.errMessage = 'Save coach informartion successful';
-                resolve(res);
+                res.errMessage = 'Save coach infor successful';
+
+                //Upsert markdown
+                let markdown = await db.Markdown.findOne({
+                    where: { coachId: inputData.coachId },
+                    raw: false,
+                });
+                if (markdown) {
+                    markdown.description = inputData.description;
+                    markdown.contentMarkdown = inputData.contentMarkdown;
+                    markdown.contentHTML = inputData.contentHTML;
+                    await markdown.save();
+                    resolve(res);
+                } else {
+                    await db.Markdown.create({
+                        contentHTML: inputData.contentHTML,
+                        contentMarkdown: inputData.contentMarkdown,
+                        description: inputData.description,
+                        coachId: inputData.coachId,
+                    });
+                    resolve(res);
+                }
+
+                //Upsert coach_infor
+                let coachInfor = await db.Coach_Infor.findOne({
+                    where: { coachId: inputData.coachId },
+                    raw: false,
+                });
+                if (coachInfor) {
+                    console.log('Coach founded');
+                    coachInfor.priceId = inputData.priceId;
+                    coachInfor.nationId = inputData.nationId;
+                    coachInfor.paymentId = inputData.paymentId;
+                    coachInfor.nameClass = inputData.nameClass;
+                    coachInfor.note = inputData.note;
+                    await coachInfor.save();
+                    resolve(res);
+                } else {
+                    console.log('Coach not found');
+                    db.Coach_Infor.create({
+                        coachId: inputData.coachId,
+                        priceId: inputData.priceId,
+                        nationId: inputData.nationId,
+                        paymentId: inputData.paymentId,
+                        nameClass: inputData.nameClass,
+                        note: inputData.note,
+                    });
+                    resolve(res);
+                }
             }
         } catch (error) {
             reject(error);
@@ -104,6 +155,36 @@ const getCoachInforById = (coachId) => {
                     res.data = {};
                 }
                 resolve(res);
+            }
+        } catch (error) {
+            reject(error);
+        }
+    });
+};
+
+const getCoachInforBooking = (coachId) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let res = {};
+            if (!coachId) {
+                res.errCode = 1;
+                res.errMessage = 'Missing required parameter ';
+                resolve(res);
+            } else {
+                let coachInforBooking = await db.Coach_Infor.findOne({
+                    where: { coachId: coachId },
+                    raw: true,
+                });
+                if (coachInforBooking) {
+                    res.errCode = 0;
+                    res.errMessage = 'Coach founded ';
+                    res.data = coachInforBooking;
+                    resolve(res);
+                } else {
+                    res.errCode = 1;
+                    res.errMessage = 'Coach not found ';
+                    resolve(res);
+                }
             }
         } catch (error) {
             reject(error);
@@ -218,6 +299,7 @@ const getScheduleByDate = (coachId, date) => {
 module.exports = {
     getAllCoach: getAllCoach,
     saveCoachInfor: saveCoachInfor,
+    getCoachInforBooking: getCoachInforBooking,
     getCoachDes: getCoachDes,
     editCoachDes: editCoachDes,
     getCoachInforById: getCoachInforById,
