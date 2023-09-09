@@ -40,7 +40,6 @@ const saveCoachInfor = (inputData) => {
             let res = {};
             if (
                 !inputData.coachId ||
-                !inputData.contentHTML ||
                 !inputData.contentMarkdown ||
                 !inputData.coachId ||
                 !inputData.priceId ||
@@ -173,7 +172,13 @@ const getCoachInforBooking = (coachId) => {
             } else {
                 let coachInforBooking = await db.Coach_Infor.findOne({
                     where: { coachId: coachId },
-                    raw: true,
+                    raw: false,
+                    nest: true,
+                    include: [
+                        { model: db.Allcode, as: 'priceData', attributes: ['valueEn'] },
+                        { model: db.Allcode, as: 'paymentData', attributes: ['valueEn'] },
+                        { model: db.Allcode, as: 'nationData', attributes: ['valueEn'] },
+                    ],
                 });
                 if (coachInforBooking) {
                     res.errCode = 0;
@@ -181,8 +186,9 @@ const getCoachInforBooking = (coachId) => {
                     res.data = coachInforBooking;
                     resolve(res);
                 } else {
-                    res.errCode = 1;
+                    res.errCode = 2;
                     res.errMessage = 'Coach not found ';
+                    res.data = {};
                     resolve(res);
                 }
             }

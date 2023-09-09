@@ -29,30 +29,44 @@ const handleSaveCoachInfor = async (req, res) => {
 };
 
 const handleGetCoachDes = async (req, res) => {
-    let id = req.query.id;
-    if (!id) {
+    try {
+        let id = req.query.id;
+        if (!id) {
+            return res.status(200).json({
+                errCode: 1,
+                errMessage: 'Missing required parameter',
+            });
+        } else {
+            let data = await coachService.getCoachDes(id);
+            return res.status(200).json(data);
+        }
+    } catch (error) {
         return res.status(200).json({
-            errCode: 1,
-            errMessage: 'Missing required parameter',
+            errCode: -1,
+            errMessage: 'Error from server',
         });
-    } else {
-        let data = await coachService.getCoachDes(id);
-        return res.status(200).json(data);
     }
 };
 
 const handleGetCoachInforById = async (req, res) => {
-    let coachId = req.query.coachId;
-    let response = await coachService.getCoachInforById(coachId);
-    return res.status(200).json(response);
+    try {
+        let coachId = req.query.coachId;
+        let response = await coachService.getCoachInforById(coachId);
+        return res.status(200).json(response);
+    } catch (error) {
+        return res.status(200).json({
+            errCode: -1,
+            errMessage: 'Error from server',
+        });
+    }
 };
 
 const handleGetCoachInforBooking = async (req, res) => {
     try {
-        const response = await coachService.getCoachInforBooking(req.query.coachId);
+        let response = await coachService.getCoachInforBooking(req.query.coachId);
         return res.status(200).json(response);
     } catch (error) {
-        return res.status.json({
+        return res.status(200).json({
             errCode: 1,
             errMessage: 'Error from server',
         });
@@ -60,11 +74,18 @@ const handleGetCoachInforBooking = async (req, res) => {
 };
 
 const handleEditCoachDes = async (req, res) => {
-    let data = req.body;
-    let message = await coachService.editCoachInfor(data);
-    return res.status(200).json({
-        message,
-    });
+    try {
+        let data = req.body;
+        let message = await coachService.editCoachDes(data);
+        return res.status(200).json({
+            message,
+        });
+    } catch (error) {
+        return res.status(200).json({
+            errCode: -1,
+            errMessage: 'Error from server',
+        });
+    }
 };
 
 const handleBulkCreateSchedule = async (req, res) => {

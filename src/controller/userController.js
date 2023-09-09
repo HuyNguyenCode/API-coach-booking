@@ -1,4 +1,3 @@
-import db from '../models/index';
 import userService from '../services/userService';
 
 const handleLogin = async (req, res) => {

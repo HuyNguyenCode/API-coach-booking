@@ -119,6 +119,11 @@ const createNewUser = (data) => {
                     positionID: data.position,
                     image: data.avatar,
                 });
+                // if (data.role === 'Coach') {
+                //     await db.Coach_Infor.create({
+                //         coachId: id,
+                //     });
+                // }
                 resolve({
                     errCode: 0,
                     message: 'Create user successfull',
