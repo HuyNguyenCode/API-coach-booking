@@ -107,7 +107,7 @@ const createNewUser = (data) => {
                 });
             } else {
                 let hashPasswordFromBcrypt = await hashUserPassword(data.password);
-                await db.User.create({
+                let userInfor = await db.User.create({
                     email: data.email,
                     password: hashPasswordFromBcrypt,
                     firstName: data.firstName,
@@ -119,11 +119,12 @@ const createNewUser = (data) => {
                     positionID: data.position,
                     image: data.avatar,
                 });
-                // if (data.role === 'Coach') {
-                //     await db.Coach_Infor.create({
-                //         coachId: id,
-                //     });
-                // }
+
+                if (data.role === 'Coach') {
+                    await db.Coach_Infor.create({
+                        coachId: userInfor.dataValues.id,
+                    });
+                }
                 resolve({
                     errCode: 0,
                     message: 'Create user successfull',
