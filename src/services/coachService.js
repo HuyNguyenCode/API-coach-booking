@@ -302,6 +302,55 @@ const getScheduleByDate = (coachId, date) => {
     });
 };
 
+const getCoachInforProfile = (coachId) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            if (!coachId) {
+                resolve({ errCode: 1, errMessage: 'Missing required parameter' });
+            } else {
+                let coach = await db.User.findOne({
+                    where: { id: coachId },
+                    attributes: {
+                        exclude: ['password'],
+                    },
+                    raw: false,
+                    include: [
+                        {
+                            model: db.Markdown,
+                            attributes: ['description'],
+                        },
+                        {
+                            model: db.Coach_Infor,
+                            attributes: {
+                                exclude: ['id', 'coachId'],
+                            },
+                            include: [
+                                { model: db.Allcode, as: 'priceData', attributes: ['valueEn'] },
+                                { model: db.Allcode, as: 'paymentData', attributes: ['valueEn'] },
+                                { model: db.Allcode, as: 'nationData', attributes: ['valueEn'] },
+                            ],
+                        },
+                    ],
+                });
+
+                if (coach) {
+                    if (coach.image) {
+                        coach.image = Buffer.from(coach.image, 'base64').toString('binary');
+                    }
+                    resolve({
+                        errCode: 0,
+                        errMessage: 'Get coach infor for profile successful!',
+                        dataProfile: coach,
+                    });
+                } else {
+                    resolve({ errCode: 1, errMessage: 'Coach not found' });
+                }
+            }
+        } catch (error) {
+            reject(error);
+        }
+    });
+};
 module.exports = {
     getAllCoach: getAllCoach,
     saveCoachInfor: saveCoachInfor,
@@ -311,4 +360,5 @@ module.exports = {
     getCoachInforById: getCoachInforById,
     bulkCreateSchedule: bulkCreateSchedule,
     getScheduleByDate: getScheduleByDate,
+    getCoachInforProfile: getCoachInforProfile,
 };

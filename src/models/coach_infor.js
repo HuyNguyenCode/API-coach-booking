@@ -17,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
             Coach_Infor.belongsTo(models.Allcode, { foreignKey: 'priceId', targetKey: 'keyMap', as: 'priceData' });
             Coach_Infor.belongsTo(models.Allcode, { foreignKey: 'paymentId', targetKey: 'keyMap', as: 'paymentData' });
             Coach_Infor.belongsTo(models.Allcode, { foreignKey: 'nationId', targetKey: 'keyMap', as: 'nationData' });
+            Coach_Infor.belongsTo(models.User, { foreignKey: 'coachId' });
         }
     }
     Coach_Infor.init(
