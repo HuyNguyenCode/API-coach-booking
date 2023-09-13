@@ -1,3 +1,4 @@
+import { forEach } from 'lodash';
 import db from '../models/index';
 
 const saveSpecialtyInfor = (data) => {
@@ -25,6 +26,32 @@ const saveSpecialtyInfor = (data) => {
         }
     });
 };
+
+const getAllSpecialties = () => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let specialties = await db.Speciality.findAll();
+            specialties = specialties.map((item) => {
+                if (item.image) {
+                    item.image = Buffer.from(item.image, 'base64').toString('binary');
+                }
+                return {
+                    ...item,
+                };
+            });
+
+            resolve({
+                errCode: 0,
+                errMessage: 'Get all specialties successful',
+                data: specialties,
+            });
+        } catch (error) {
+            reject(error);
+        }
+    });
+};
+
 module.exports = {
     saveSpecialtyInfor: saveSpecialtyInfor,
+    getAllSpecialties: getAllSpecialties,
 };
