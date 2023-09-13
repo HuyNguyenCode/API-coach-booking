@@ -2,6 +2,8 @@ import express from 'express';
 import homeController from '../controller/homeController';
 import userController from '../controller/userController';
 import coachController from '../controller/coachController';
+import studentController from '../controller/studentController';
+import specialtyController from '../controller/specialtyController';
 let router = express.Router();
 
 let initWebRoutes = (app) => {
@@ -51,6 +53,13 @@ let initWebRoutes = (app) => {
     router.get('/api/get-coach-infor-profile', coachController.handleGetCoachInforProfile); // Get coach des
     router.post('/api/bulk-create-schedule', coachController.handleBulkCreateSchedule); // Get coach des
     router.get('/api/get-schedule-by-date', coachController.handleGetScheduleByDate); // Get coach des
+
+    //========== Student API ===========
+    router.post('/api/post-book-appointment', studentController.handlePostBookAppointment); // Get coach des
+
+    //========== Specialty API ===========
+    router.post('/api/save-specialty-infor', specialtyController.handleSaveSpecialtyInfor); // Save coach infor
+
     return app.use('/', router);
 };
 

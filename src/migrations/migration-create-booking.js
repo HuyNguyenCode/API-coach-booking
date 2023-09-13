@@ -14,17 +14,17 @@ module.exports = {
                 primaryKey: true,
                 type: Sequelize.INTEGER,
             },
-            statusID: {
+            statusId: {
+                type: Sequelize.STRING,
+            },
+            coachId: {
                 type: Sequelize.INTEGER,
             },
-            coachID: {
-                type: Sequelize.INTEGER,
-            },
-            studentID: {
+            studentId: {
                 type: Sequelize.INTEGER,
             },
             date: {
-                type: Sequelize.DATE,
+                type: Sequelize.STRING,
             },
             timeType: {
                 type: Sequelize.STRING,
