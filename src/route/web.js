@@ -51,6 +51,7 @@ let initWebRoutes = (app) => {
     router.get('/api/get-coach-infor-by-id', coachController.handleGetCoachInforById); // Get coach des
     router.get('/api/get-coach-infor-booking', coachController.handleGetCoachInforBooking); // Get coach des
     router.get('/api/get-coach-infor-profile', coachController.handleGetCoachInforProfile); // Get coach des
+    router.get('/api/get-coach-infor-by-specialty', coachController.handleGetCoachInforBySpecialty); // Get coach des
     router.post('/api/bulk-create-schedule', coachController.handleBulkCreateSchedule); // Get coach des
     router.get('/api/get-schedule-by-date', coachController.handleGetScheduleByDate); // Get coach des
 

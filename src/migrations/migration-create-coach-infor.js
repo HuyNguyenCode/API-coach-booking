@@ -13,6 +13,12 @@ module.exports = {
                 type: Sequelize.INTEGER,
                 allowNull: false,
             },
+            specialtyId: {
+                type: Sequelize.INTEGER,
+            },
+            classroomId: {
+                type: Sequelize.INTEGER,
+            },
             priceId: {
                 type: Sequelize.STRING,
                 allowNull: false,

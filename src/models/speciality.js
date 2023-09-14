@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate(models) {
             // define association here
+            Speciality.hasMany(models.Coach_Infor, { foreignKey: 'specialtyId', as: 'specialtyData' });
         }
     }
     Speciality.init(

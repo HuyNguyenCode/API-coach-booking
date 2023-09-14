@@ -85,14 +85,16 @@ const saveCoachInfor = (inputData) => {
                     coachInfor.priceId = inputData.priceId;
                     coachInfor.nationId = inputData.nationId;
                     coachInfor.paymentId = inputData.paymentId;
+                    coachInfor.specialtyId = inputData.specialtyId;
                     coachInfor.nameClass = inputData.nameClass;
                     coachInfor.note = inputData.note;
                     await coachInfor.save();
                     resolve(res);
                 } else {
-                    console.log('Coach not found');
+                    console.log('Coach not found, create new user');
                     db.Coach_Infor.create({
                         coachId: inputData.coachId,
+                        specialtyId: inputData.specialtyId,
                         priceId: inputData.priceId,
                         nationId: inputData.nationId,
                         paymentId: inputData.paymentId,
@@ -178,6 +180,7 @@ const getCoachInforBooking = (coachId) => {
                         { model: db.Allcode, as: 'priceData', attributes: ['valueEn'] },
                         { model: db.Allcode, as: 'paymentData', attributes: ['valueEn'] },
                         { model: db.Allcode, as: 'nationData', attributes: ['valueEn'] },
+                        { model: db.Speciality, as: 'specialtyData', attributes: ['name'] },
                     ],
                 });
                 if (coachInforBooking) {
@@ -190,6 +193,45 @@ const getCoachInforBooking = (coachId) => {
                     res.errMessage = 'Coach not found ';
                     res.data = {};
                     resolve(res);
+                }
+            }
+        } catch (error) {
+            reject(error);
+        }
+    });
+};
+
+const getCoachInforBySpecialty = (specialtyIdInput) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            if (!specialtyIdInput) {
+                resolve({
+                    errCode: 1,
+                    errMessage: 'Missing required parameter',
+                });
+            } else {
+                let coaches = await db.Coach_Infor.findAll({
+                    where: { specialtyId: specialtyIdInput },
+                    raw: false,
+                    nest: true,
+                    include: [
+                        { model: db.Allcode, as: 'priceData', attributes: ['valueEn'] },
+                        { model: db.Allcode, as: 'paymentData', attributes: ['valueEn'] },
+                        { model: db.Allcode, as: 'nationData', attributes: ['valueEn'] },
+                        { model: db.Speciality, as: 'specialtyData', attributes: ['name'] },
+                    ],
+                });
+                if (!coaches) {
+                    resolve({
+                        errCode: 2,
+                        errMessage: 'No coach founded in this specialty',
+                    });
+                } else {
+                    resolve({
+                        errCode: 0,
+                        errMessage: 'Successfully get all coaches in this specialty ',
+                        data: coaches,
+                    });
                 }
             }
         } catch (error) {
@@ -361,4 +403,5 @@ module.exports = {
     bulkCreateSchedule: bulkCreateSchedule,
     getScheduleByDate: getScheduleByDate,
     getCoachInforProfile: getCoachInforProfile,
+    getCoachInforBySpecialty: getCoachInforBySpecialty,
 };
