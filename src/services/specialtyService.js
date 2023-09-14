@@ -1,4 +1,3 @@
-import { forEach } from 'lodash';
 import db from '../models/index';
 
 const saveSpecialtyInfor = (data) => {
@@ -50,8 +49,38 @@ const getAllSpecialties = () => {
         }
     });
 };
-
+const getSpecialtyById = (specialtyId) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            if (!specialtyId) {
+                resolve({
+                    errCode: 1,
+                    errMessage: 'Missing riquired parameter',
+                });
+            } else {
+                let coach = await db.Speciality.findOne({
+                    where: { id: specialtyId },
+                });
+                if (coach) {
+                    resolve({
+                        errCode: 0,
+                        errMessage: 'Get specialty infor successful',
+                        data: coach,
+                    });
+                } else {
+                    resolve({
+                        errCode: 2,
+                        errMessage: 'Coach not found',
+                    });
+                }
+            }
+        } catch (error) {
+            reject(error);
+        }
+    });
+};
 module.exports = {
     saveSpecialtyInfor: saveSpecialtyInfor,
     getAllSpecialties: getAllSpecialties,
+    getSpecialtyById: getSpecialtyById,
 };

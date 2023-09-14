@@ -219,7 +219,22 @@ const getCoachInforBySpecialty = (specialtyIdInput) => {
                         { model: db.Allcode, as: 'paymentData', attributes: ['valueEn'] },
                         { model: db.Allcode, as: 'nationData', attributes: ['valueEn'] },
                         { model: db.Speciality, as: 'specialtyData', attributes: ['name'] },
+                        {
+                            model: db.User,
+                            include: { model: db.Markdown, attributes: ['description'] },
+                            attributes: {
+                                exclude: ['password'],
+                            },
+                        },
                     ],
+                });
+                coaches.map((item) => {
+                    if (item.User.image) {
+                        item.User.image = Buffer.from(item.User.image, 'base64').toString('binary');
+                    }
+                    return {
+                        ...item,
+                    };
                 });
                 if (!coaches) {
                     resolve({

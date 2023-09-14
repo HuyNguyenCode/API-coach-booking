@@ -23,6 +23,7 @@ module.exports = (sequelize, DataTypes) => {
                 targetKey: 'id',
                 as: 'specialtyData',
             });
+            Coach_Infor.hasOne(models.Markdown, { foreignKey: 'coachId' });
         }
     }
     Coach_Infor.init(

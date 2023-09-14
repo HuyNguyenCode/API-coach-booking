@@ -61,6 +61,7 @@ let initWebRoutes = (app) => {
     //========== Specialty API ===========
     router.post('/api/save-specialty-infor', specialtyController.handleSaveSpecialtyInfor); // Save coach infor
     router.get('/api/get-all-specialties', specialtyController.handleGetAllSpecialties); // Save coach infor
+    router.get('/api/get-specialty-by-id', specialtyController.handleGetSpecialtyById); // Save coach infor
 
     return app.use('/', router);
 };

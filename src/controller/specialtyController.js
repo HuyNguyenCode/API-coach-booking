@@ -14,7 +14,7 @@ const handleSaveSpecialtyInfor = async (req, res) => {
 
 const handleGetAllSpecialties = async (req, res) => {
     try {
-        let response = await specialtyService.getAllSpecialties(req.bo);
+        let response = await specialtyService.getAllSpecialties();
         return res.status(200).json(response);
     } catch (error) {
         return res.status(200).json({
@@ -23,8 +23,19 @@ const handleGetAllSpecialties = async (req, res) => {
         });
     }
 };
-
+const handleGetSpecialtyById = async (req, res) => {
+    try {
+        let response = await specialtyService.getSpecialtyById(req.query.specialtyId);
+        return res.status(200).json(response);
+    } catch (error) {
+        return res.status(200).json({
+            errCode: -1,
+            errMessage: 'Error from server',
+        });
+    }
+};
 module.exports = {
     handleSaveSpecialtyInfor: handleSaveSpecialtyInfor,
     handleGetAllSpecialties: handleGetAllSpecialties,
+    handleGetSpecialtyById: handleGetSpecialtyById,
 };
