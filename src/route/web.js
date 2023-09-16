@@ -57,6 +57,7 @@ let initWebRoutes = (app) => {
 
     //========== Student API ===========
     router.post('/api/post-book-appointment', studentController.handlePostBookAppointment); // Get coach des
+    router.get('/api/get-book-appointment', studentController.handleGetBookAppointment); // Get coach des
 
     //========== Specialty API ===========
     router.post('/api/save-specialty-infor', specialtyController.handleSaveSpecialtyInfor); // Save coach infor

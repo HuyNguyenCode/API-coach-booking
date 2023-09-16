@@ -8,10 +8,22 @@ const postBookAppointment = (dataInput) => {
                     errMessage: 'Missing required parameter',
                 });
             } else {
+                let firstName = '';
+                let lastName = '';
+                if (dataInput.fullName) {
+                    let names = dataInput.fullName.split(' ');
+                    firstName = names[0];
+                    lastName = names[1];
+                }
                 let users = await db.User.findOrCreate({
                     where: { email: dataInput.email },
                     defaults: {
                         email: dataInput.email,
+                        phoneNumber: dataInput.phoneNumber,
+                        address: dataInput.address,
+                        positionID: 'None',
+                        firstName: firstName,
+                        lastName: lastName,
                         roleid: 'Student',
                     },
                 });
@@ -37,6 +49,48 @@ const postBookAppointment = (dataInput) => {
         }
     });
 };
+
+const getBookAppointment = (coachId, date) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            if (!coachId || !date) {
+                resolve({
+                    errCode: 1,
+                    errMessage: 'Missing required parameter',
+                });
+            } else {
+                let studentInfor = await db.Booking.findAll({
+                    where: { coachId: coachId, date: date },
+                    raw: false,
+                    nest: true,
+                    include: [
+                        {
+                            model: db.User,
+                            as: 'studentData',
+                            attributes: ['email', 'firstName', 'lastName', 'address', 'phoneNumber'],
+                        },
+                    ],
+                });
+                if (!studentInfor) {
+                    resolve({
+                        errCode: 1,
+                        errMessage: 'User not found',
+                    });
+                } else {
+                    resolve({
+                        errCode: 0,
+                        errMessage: 'Get infor student successful',
+                        data: studentInfor,
+                    });
+                }
+            }
+        } catch (error) {
+            reject(error);
+        }
+    });
+};
+
 module.exports = {
     postBookAppointment: postBookAppointment,
+    getBookAppointment: getBookAppointment,
 };
